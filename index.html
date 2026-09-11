@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#080d13" />
+    <meta name="description" content="Explore a continuous ribbon flow in 3D. Rotate the original paths and independently adjust particle velocity, path count, and particle count." />
+    <title>Inside the swirling core · Navier–Stokes</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="experience">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">NAVIER-STOKES / FLOW VISUALIZATION OF OPENAI'S FINITE TIME BLOWUP SOLUTION</p>
+          <h1>Inside the swirling core</h1>
+        </div>
+        <button class="icon-button help-button" id="about-button" aria-label="About the flow" title="About the flow" aria-haspopup="dialog"><span aria-hidden="true">?</span></button>
+      </header>
+
+      <section class="stage" id="stage" aria-label="Interactive three-dimensional ribbon flow">
+        <div id="viewport" tabindex="0" role="group" aria-label="3D flow. Drag to rotate, pinch or scroll to zoom. Arrow keys rotate; plus and minus zoom; Home resets the camera and controls. In full screen, double-tap or press Escape to return."></div>
+        <div class="loading" id="loading" role="status"><span class="loading-ring" aria-hidden="true"></span><span id="loading-text">Preparing the ribbons…</span><button id="retry" class="text-button" hidden>Try again</button></div>
+      </section>
+
+      <section class="console" aria-label="Animation controls">
+        <button class="drawer-toggle" id="toggle-controls" aria-expanded="true" aria-controls="control-panel" title="Hide controls"><span>Controls</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div id="control-panel">
+        <fieldset id="flow-controls" disabled>
+          <legend class="sr-only">Flow and particle controls</legend>
+          <div class="panel-actions">
+            <button class="control-button" id="reset-view" title="Reset camera and controls" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 10a9 9 0 1 1 1.5 7M3 4v6h6"/></svg>Reset</button>
+            <button class="control-button" id="fullscreen" title="Full screen · Double-tap or press Escape to return" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg>Full screen</button>
+          </div>
+          <div class="parameters">
+            <div class="parameter"><div class="control-label"><label for="velocity">Particle velocity</label><output id="velocity-value" for="velocity">1×</output></div><input id="velocity" type="range" min="0.25" max="2" value="1" step="0.25" /><div class="range-endpoints"><span>0.25×</span><span>2×</span></div></div>
+            <div class="parameter"><div class="control-label"><label for="paths">Path Count</label><output id="paths-value" for="paths">116</output></div><input id="paths" type="range" min="0" max="116" value="116" step="1" /><div class="range-endpoints"><span>None</span><span>116 paths</span></div></div>
+            <div class="parameter particle-parameter"><div class="control-label"><label for="particles">Particle Count</label><output id="particles-value" for="particles">58</output></div><input id="particles" type="range" min="0" max="348" value="58" step="1" /><div class="range-endpoints"><span>None</span><span>348 particles</span></div></div>
+          </div>
+        </fieldset>
+        <div class="legend"><span>Color = turning rate</span><div class="color-key"><span>Slower</span><span class="color-ramp" aria-hidden="true"></span><span>Faster</span></div></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="about-dialog" aria-labelledby="about-title">
+      <button id="close-about" class="icon-button close-dialog" aria-label="Close about the flow">×</button>
+      <p class="eyebrow">About the flow</p><h2 id="about-title">Follow the motion.</h2>
+      <p>Explore the swirling core of a fluid flow reconstructed from OpenAI’s Navier–Stokes paper. The ribbons trace paths through the flow, while bright particles and their trails reveal the direction of motion.</p>
+      <p>Color shows the rate of turning around the central axis: cooler colors mark slower turning, and orange marks faster turning. The velocity field is held at one instant so you can study its structure from any angle.</p>
+      <dl>
+        <dt>Explore</dt><dd>Drag to orbit, including directly above and below. Pinch or scroll to zoom.</dd>
+        <dt>Adjust</dt><dd>Particle velocity changes the speed of motion. Path Count sets the number of ribbons; Particle Count sets the number of bright particles and trails. Each count works independently.</dd>
+        <dt>Focus</dt><dd>Collapse Controls for more space, or choose Full screen to see only the model. Double-tap or double-click the model, or press Escape, to return.</dd>
+        <dt>Reset</dt><dd>Restore the initial camera view, 1× velocity, 116 paths, and 58 particles. With the model focused, arrow keys rotate, +/− zoom, and Home resets.</dd>
+      </dl>
+      <p class="about-note">This visualization shows a small local reconstruction of the paper’s leading flow. It does not show the complete evolving Navier–Stokes solution. Ribbon width and particle trails are visual aids; numerical checks are not a mathematical proof.</p>
+    </dialog>
+    <noscript><p class="noscript">Enable JavaScript to explore the interactive flow.</p></noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
